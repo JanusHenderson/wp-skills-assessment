@@ -140,7 +140,6 @@ class Jh_Nyt_Top_Stories {
 		$plugin_i18n = new Jh_Nyt_Top_Stories_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -157,6 +156,16 @@ class Jh_Nyt_Top_Stories {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// add the register type
+		$this->loader->add_action( 'init', $plugin_admin, 'register_post_types' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_menu_items' );
+
+		// add the wp cron
+		$this->loader->add_filter( 'cron_schedules', $plugin_admin, 'add_schedule_hours' );
+		$this->loader->add_action( Jh_Nyt_Top_Stories_Admin::cron_event, $plugin_admin, 'schedule_callback' );
+
+		// add the wp cli
+		$this->loader->add_action( 'cli_init', $plugin_admin, 'add_cli');
 	}
 
 	/**
@@ -172,6 +181,8 @@ class Jh_Nyt_Top_Stories {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$this->loader->add_shortcode( 'nyt_top_stories', $plugin_public, 'nyt_top_stores' );
 
 	}
 

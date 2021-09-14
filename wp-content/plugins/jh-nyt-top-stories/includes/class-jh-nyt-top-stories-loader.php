@@ -42,6 +42,15 @@ class Jh_Nyt_Top_Stories_Loader {
 	protected $filters;
 
 	/**
+	 * The array of the shortcode.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      array    $filters    The filters registered with WordPress to fire when the plugin loads.
+	 */
+	protected $shortcodes;
+
+	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
 	 * @since    1.0.0
@@ -50,7 +59,7 @@ class Jh_Nyt_Top_Stories_Loader {
 
 		$this->actions = array();
 		$this->filters = array();
-
+		$this->shortcodes = array();
 	}
 
 	/**
@@ -79,6 +88,22 @@ class Jh_Nyt_Top_Stories_Loader {
 	 */
 	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
+	}
+
+	/**
+	 * Add a shortcode
+	 *
+	 * @since    1.0.0
+	 * @param    string               $shortcode_name             The name of a shortcode.
+	 * @param    object               $component        A reference to the instance of the object on which the filter is defined.
+	 * @param    string               $callback         The name of the function definition on the $component
+	 */
+	public function add_shortcode( $shortcode_name, $component, $callback ) {
+		$this->shortcodes[] = array(
+			'name'          => $shortcode_name,
+			'component'     => $component,
+			'callback'      => $callback,
+		);
 	}
 
 	/**
@@ -124,6 +149,9 @@ class Jh_Nyt_Top_Stories_Loader {
 			add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 		}
 
+		foreach ( $this->shortcodes as $shortcode ) {
+			add_shortcode( $shortcode['name'], array( $shortcode['component'], $shortcode['callback'] ) );
+		}
 	}
 
 }

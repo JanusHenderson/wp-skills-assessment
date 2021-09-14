@@ -100,4 +100,55 @@ class Jh_Nyt_Top_Stories_Public {
 
 	}
 
+	/**
+	 *  show the top stories
+	 * 	[nyt_top_stories count="5" "sort"="desc"]
+	 * 
+	 * @since 1.0.0
+	 */
+	public function nyt_top_stores( $atts = array(), $conten = null ) {
+		extract(
+			shortcode_atts(
+				array(
+					'count' => '5',
+					'sort' => 'desc'
+		   		),
+			$atts)
+		);
+
+		$stories = get_posts(
+			array(
+				'numberposts' => $count,
+				'post_type' => 'nyt-top-story',
+				'post_status' => 'publish',
+				'orderby' => 'date',
+				'order' => $sort
+			)
+		);
+
+		$html = '';
+		if ( !empty( $stories ) ) {
+			ob_start();			
+			?>
+			<div class="nyt_top_stories_container">
+				<ul>
+					<?php foreach ($stories as $story):
+					$title = get_the_title( $story );
+					$link = get_post_meta( $story->ID, 'URL', true );
+					$byline = get_post_meta( $story->ID, 'byline', true );
+				 ?>
+					<li class="nyt_story_item">
+						<h3><a href="<?php echo $link; ?>" title="<?php echo $title; ?>"><?php echo $title; ?></a></h3>
+						<p><?php echo $byline; ?></p>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+			$html = ob_get_clean();
+		}
+
+		return $html;
+	}
+
 }

@@ -2,3 +2,26 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+ .nyt_top_stories_container {
+    max-width: 100%;
+ }
+
+ .nyt_top_stories_container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+ }
+
+ .nyt_top_stories_container .nyt_story_item{
+    margin: 0.5rem auto 1rem;    
+ }
+
+ .nyt_top_stories_container h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+ }
+
+ .nyt_top_stories_container .nyt_story_item a {
+     font-size: inherit;
+ }
