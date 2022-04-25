@@ -5,10 +5,10 @@
 In this task you will ingest content from the New York Times' "Top Stories" API into WordPress. Below is a simple mockup of how this task would be detailed in a Jira Story at Janus Henderson. Before you dive into the story, here are a few development requirements.
 
 ### Instructions
-- Fork this repo and clone it locally.
+- Fork/clone this repo locally.
 - Build/develop the plugin according to the requirements listed below.
-- Add the plugin to a vanilla install of running WordPress so you can demo your code during future discussions.
-- Make a pull request to this repo with your completed code prior to the next discussion.
+- Add the plugin to a vanilla install of running WordPress so you can demo your code during the interview process.
+- Be prepared to share a public link to your work during the interview process.
 
 ### Restrictions
 - Do not create a plugin from scratch. Please use the plugin found in `wp-content/plugins/jh-nyt-top-stories`. This plugin uses the [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate), an Object-Oriented boilerplate used for plugin development at Janus Henderson.
